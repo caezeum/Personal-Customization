@@ -1,0 +1,9 @@
+{
+  "theme": "RosePine",
+  "controlStyles[0].target": "Windows.UI.Xaml.Controls.Border#AcrylicBorder",
+  "controlStyles[0].styles[0]": "BorderBrush:=#313244",
+  "controlStyles[1].target": "Windows.UI.Xaml.Controls.Border#AppBorder",
+  "controlStyles[1].styles[0]": "BorderBrush:=#313244",
+  "controlStyles[2].target": "Windows.UI.Xaml.Controls.Border#TaskbarSearchBackground",
+  "controlStyles[2].styles[0]": "BorderBrush:=#313244"
+}
