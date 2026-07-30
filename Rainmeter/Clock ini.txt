@@ -1,0 +1,194 @@
+[Rainmeter]
+Update=1000
+AccurateText=1
+BackgroundMode=2
+SolidColor=0,0,0,1
+
+[Variables]
+Scale=1.2
+
+; Catppuccin Mocha
+ColorBg=30,30,46          ; Base
+ColorFg=205,214,244       ; Text
+ColorMuted=166,173,200    ; Subtext0
+ColorBorder=88,91,112     ; Surface2
+ColorAccent=245,224,220   ; RoseWater
+ColorHover=49,50,68       ; Surface0
+
+FontFace=JetBrains Mono
+FontSize=(12*#Scale#)
+FontSizeSm=(10*#Scale#)
+FontSizeXs=(9*#Scale#)
+
+W=(280*#Scale#)
+H=(164*#Scale#)
+
+; ═══════════════════════════════════════════
+; MEASURES
+; ═══════════════════════════════════════════
+
+[mTime]
+Measure=Time
+Format=%H:%M:%S
+
+[mDate]
+Measure=Time
+Format=%A, %B %d
+
+[mYear]
+Measure=Time
+Format=%Y
+
+[mUptime]
+Measure=Uptime
+Format=%4!i!d %3!i!h %2!i!m
+
+; ═══════════════════════════════════════════
+; METERS
+; ═══════════════════════════════════════════
+
+; ── Background fill ──
+[MeterBg]
+Meter=Image
+X=0
+Y=(7*#Scale#)
+W=#W#
+H=(#H#-(7*#Scale#))
+SolidColor=#ColorBg#
+
+; ── Border ──
+[MeterBorderTop]
+Meter=Image
+X=0
+Y=(7*#Scale#)
+W=#W#
+H=1
+SolidColor=#ColorBorder#
+
+[MeterBorderBottom]
+Meter=Image
+X=0
+Y=(#H#-1)
+W=#W#
+H=1
+SolidColor=#ColorBorder#
+
+[MeterBorderLeft]
+Meter=Image
+X=0
+Y=(7*#Scale#)
+W=1
+H=(#H#-(7*#Scale#))
+SolidColor=#ColorBorder#
+
+[MeterBorderRight]
+Meter=Image
+X=(#W#-1)
+Y=(7*#Scale#)
+W=1
+H=(#H#-(7*#Scale#))
+SolidColor=#ColorBorder#
+
+; ── Title background ──
+[MeterTitleBg]
+Meter=Image
+X=(8*#Scale#)
+Y=(1*#Scale#)
+W=(82*#Scale#)
+H=(14*#Scale#)
+SolidColor=#ColorBg#
+
+; ── Title ──
+[MeterTitle]
+Meter=String
+X=(12*#Scale#)
+Y=0
+FontFace=#FontFace#
+FontSize=#FontSizeSm#
+FontWeight=700
+FontColor=#ColorAccent#
+StringAlign=Left
+StringCase=Lower
+AntiAlias=1
+Text=clock.sys
+MouseOverAction=[!SetOption MeterTitle FontColor "#ColorFg#"][!UpdateMeter MeterTitle][!Redraw]
+MouseLeaveAction=[!SetOption MeterTitle FontColor "#ColorAccent#"][!UpdateMeter MeterTitle][!Redraw]
+
+; ── Time ──
+[MeterTime]
+Meter=String
+MeasureName=mTime
+X=(#W#/2)
+Y=(36*#Scale#)
+FontFace=#FontFace#
+FontSize=(26*#Scale#)
+FontWeight=700
+FontColor=#ColorFg#
+StringAlign=Center
+AntiAlias=1
+Text=%1
+
+; ── Date ──
+[MeterDate]
+Meter=String
+MeasureName=mDate
+X=(#W#/2)
+Y=(78*#Scale#)
+FontFace=#FontFace#
+FontSize=#FontSizeXs#
+FontWeight=400
+FontColor=#ColorMuted#
+StringAlign=Center
+StringCase=Lower
+AntiAlias=1
+Text=%1
+
+; ── Separator ──
+[MeterSep]
+Meter=Image
+X=(14*#Scale#)
+Y=(104*#Scale#)
+W=(#W#-(28*#Scale#))
+H=1
+SolidColor=#ColorBorder#
+
+; ── Uptime label ──
+[MeterUptimeLabel]
+Meter=String
+X=(14*#Scale#)
+Y=(114*#Scale#)
+FontFace=#FontFace#
+FontSize=#FontSizeXs#
+FontWeight=400
+FontColor=#ColorMuted#
+StringAlign=Left
+AntiAlias=1
+Text=uptime:
+
+; ── Uptime value ──
+[MeterUptime]
+Meter=String
+MeasureName=mUptime
+X=(#W#-(14*#Scale#))
+Y=(114*#Scale#)
+FontFace=#FontFace#
+FontSize=#FontSizeXs#
+FontWeight=400
+FontColor=#ColorAccent#
+StringAlign=Right
+AntiAlias=1
+Text=%1
+
+; ── Year ──
+[MeterYear]
+Meter=String
+MeasureName=mYear
+X=(#W#-(14*#Scale#))
+Y=(132*#Scale#)
+FontFace=#FontFace#
+FontSize=#FontSizeXs#
+FontWeight=400
+FontColor=#ColorBorder#
+StringAlign=Right
+AntiAlias=1
+Text=%1

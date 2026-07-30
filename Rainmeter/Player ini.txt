@@ -1,0 +1,559 @@
+[Rainmeter]
+Update=50
+AccurateText=1
+BackgroundMode=2
+SolidColor=0,0,0,1
+
+[Variables]
+; Darkish theme (matching TerminalStart)
+ColorBg=30,30,46
+ColorMantle=24,24,37
+ColorFg=205,214,244
+ColorRosewater=245,224,220
+ColorLavender=180,190,254
+ColorPink=245,194,231
+ColorBlue=137,180,250
+ColorMuted=166,173,200
+ColorBorder=69,71,90
+ColorAccent=#ColorBlue#
+ColorHover=49,50,68
+ColorDim=#ColorMantle#
+FontFace=JetBrains Mono
+FontSize=12
+FontSizeSm=10
+FontSizeXs=9
+W=300
+H=186
+
+; ── Player config ──
+; Supported: Spotify, CAD, WMP, iTunes, WinAmp, AIMP, foobar2000
+Player=Spotify
+
+; ── EQ layout ──
+BarW=20
+BarGap=6
+EqX=23
+EqY=88
+
+; ═══════════════════════════════════════════
+; MEASURES – Now Playing
+; ═══════════════════════════════════════════
+
+[mPlayer]
+Measure=NowPlaying
+PlayerName=#Player#
+PlayerType=Status
+
+[mTitle]
+Measure=NowPlaying
+PlayerName=[mPlayer]
+PlayerType=Title
+
+[mArtist]
+Measure=NowPlaying
+PlayerName=[mPlayer]
+PlayerType=Artist
+
+[mProgress]
+Measure=NowPlaying
+PlayerName=[mPlayer]
+PlayerType=Progress
+
+[mPosition]
+Measure=NowPlaying
+PlayerName=[mPlayer]
+PlayerType=Position
+
+[mDuration]
+Measure=NowPlaying
+PlayerName=[mPlayer]
+PlayerType=Duration
+
+[mState]
+Measure=NowPlaying
+PlayerName=[mPlayer]
+PlayerType=State
+Substitute="0":"-- idle","1":"> playing","2":"|| paused"
+
+; ═══════════════════════════════════════════
+; MEASURES – AudioLevel (pixel EQ)
+; ═══════════════════════════════════════════
+
+[mAudio]
+Measure=Plugin
+Plugin=AudioLevel
+Port=Output
+FFTSize=1024
+FFTOverlap=512
+FFTAttack=80
+FFTDecay=150
+Bands=10
+FreqMin=20
+FreqMax=16000
+
+[mBand0]
+Measure=Plugin
+Plugin=AudioLevel
+Parent=mAudio
+Type=Band
+BandIdx=0
+
+[mBand1]
+Measure=Plugin
+Plugin=AudioLevel
+Parent=mAudio
+Type=Band
+BandIdx=1
+
+[mBand2]
+Measure=Plugin
+Plugin=AudioLevel
+Parent=mAudio
+Type=Band
+BandIdx=2
+
+[mBand3]
+Measure=Plugin
+Plugin=AudioLevel
+Parent=mAudio
+Type=Band
+BandIdx=3
+
+[mBand4]
+Measure=Plugin
+Plugin=AudioLevel
+Parent=mAudio
+Type=Band
+BandIdx=4
+
+[mBand5]
+Measure=Plugin
+Plugin=AudioLevel
+Parent=mAudio
+Type=Band
+BandIdx=5
+
+[mBand6]
+Measure=Plugin
+Plugin=AudioLevel
+Parent=mAudio
+Type=Band
+BandIdx=6
+
+[mBand7]
+Measure=Plugin
+Plugin=AudioLevel
+Parent=mAudio
+Type=Band
+BandIdx=7
+
+[mBand8]
+Measure=Plugin
+Plugin=AudioLevel
+Parent=mAudio
+Type=Band
+BandIdx=8
+
+[mBand9]
+Measure=Plugin
+Plugin=AudioLevel
+Parent=mAudio
+Type=Band
+BandIdx=9
+
+; ═══════════════════════════════════════════
+; METERS – TUI Border
+; ═══════════════════════════════════════════
+
+[MeterBg]
+Meter=Image
+X=0
+Y=7
+W=#W#
+H=(#H# - 7)
+SolidColor=#ColorBg#
+
+[MeterBorderTop]
+Meter=Image
+X=0
+Y=7
+W=#W#
+H=1
+SolidColor=#ColorBorder#
+
+[MeterBorderBottom]
+Meter=Image
+X=0
+Y=(#H# - 1)
+W=#W#
+H=1
+SolidColor=#ColorBorder#
+
+[MeterBorderLeft]
+Meter=Image
+X=0
+Y=7
+W=1
+H=(#H# - 7)
+SolidColor=#ColorBorder#
+
+[MeterBorderRight]
+Meter=Image
+X=(#W# - 1)
+Y=7
+W=1
+H=(#H# - 7)
+SolidColor=#ColorBorder#
+
+[MeterTitleBg]
+Meter=Image
+X=8
+Y=1
+W=90
+H=14
+SolidColor=#ColorBg#
+
+[MeterTitle]
+Meter=String
+X=12
+Y=0
+FontFace=#FontFace#
+FontSize=#FontSizeSm#
+FontWeight=700
+FontColor=#ColorPink#
+StringAlign=Left
+StringCase=Lower
+AntiAlias=1
+Text=media.pid
+MouseOverAction=[!SetOption MeterTitle FontColor "#ColorAccent#"][!UpdateMeter MeterTitle][!Redraw]
+MouseLeaveAction=[!SetOption MeterTitle FontColor "#ColorMuted#"][!UpdateMeter MeterTitle][!Redraw]
+
+; ═══════════════════════════════════════════
+; METERS – Source + State
+; ═══════════════════════════════════════════
+
+[MeterSrcLabel]
+Meter=String
+X=14
+Y=28
+FontFace=#FontFace#
+FontSize=#FontSizeXs#
+FontWeight=400
+FontColor=#ColorMuted#
+StringAlign=Left
+AntiAlias=1
+Text=src:
+
+[MeterSrcValue]
+Meter=String
+X=50
+Y=28
+FontFace=#FontFace#
+FontSize=#FontSizeXs#
+FontWeight=400
+FontColor=#ColorAccent#
+StringAlign=Left
+StringCase=Lower
+AntiAlias=1
+Text=#Player#
+
+[MeterState]
+Meter=String
+MeasureName=mState
+X=(#W# - 14)
+Y=28
+FontFace=#FontFace#
+FontSize=#FontSizeXs#
+FontWeight=400
+FontColor=#ColorMuted#
+StringAlign=Right
+StringCase=Lower
+AntiAlias=1
+Text=%1
+
+; ═══════════════════════════════════════════
+; METERS – Track Info
+; ═══════════════════════════════════════════
+
+[MeterTrack]
+Meter=String
+MeasureName=mTitle
+X=14
+Y=46
+W=(#W# - 28)
+FontFace=#FontFace#
+FontSize=#FontSizeSm#
+FontWeight=700
+FontColor=#ColorRosewater#
+StringAlign=Left
+AntiAlias=1
+ClipString=1
+Text=%1
+
+[MeterArtist]
+Meter=String
+MeasureName=mArtist
+X=14
+Y=64
+W=(#W# - 28)
+FontFace=#FontFace#
+FontSize=#FontSizeXs#
+FontWeight=400
+FontColor=#ColorMuted#
+StringAlign=Left
+AntiAlias=1
+ClipString=1
+Text=%1
+
+; ═══════════════════════════════════════════
+; METERS – Pixel EQ (segmented bars + gap overlay)
+; ═══════════════════════════════════════════
+
+[MeterSep1]
+Meter=Image
+X=14
+Y=80
+W=(#W# - 28)
+H=1
+SolidColor=#ColorBorder#
+
+; ── 10 vertical bars ──
+
+[EqBar0]
+Meter=Bar
+MeasureName=mBand0
+X=#EqX#
+Y=#EqY#
+W=#BarW#
+H=28
+BarColor=#ColorAccent#
+SolidColor=#ColorHover#
+BarOrientation=Vertical
+
+[EqBar1]
+Meter=Bar
+MeasureName=mBand1
+X=(#EqX# + (#BarW# + #BarGap#))
+Y=#EqY#
+W=#BarW#
+H=28
+BarColor=#ColorAccent#
+SolidColor=#ColorHover#
+BarOrientation=Vertical
+
+[EqBar2]
+Meter=Bar
+MeasureName=mBand2
+X=(#EqX# + (#BarW# + #BarGap#) * 2)
+Y=#EqY#
+W=#BarW#
+H=28
+BarColor=#ColorAccent#
+SolidColor=#ColorHover#
+BarOrientation=Vertical
+
+[EqBar3]
+Meter=Bar
+MeasureName=mBand3
+X=(#EqX# + (#BarW# + #BarGap#) * 3)
+Y=#EqY#
+W=#BarW#
+H=28
+BarColor=#ColorAccent#
+SolidColor=#ColorHover#
+BarOrientation=Vertical
+
+[EqBar4]
+Meter=Bar
+MeasureName=mBand4
+X=(#EqX# + (#BarW# + #BarGap#) * 4)
+Y=#EqY#
+W=#BarW#
+H=28
+BarColor=#ColorAccent#
+SolidColor=#ColorHover#
+BarOrientation=Vertical
+
+[EqBar5]
+Meter=Bar
+MeasureName=mBand5
+X=(#EqX# + (#BarW# + #BarGap#) * 5)
+Y=#EqY#
+W=#BarW#
+H=28
+BarColor=#ColorAccent#
+SolidColor=#ColorHover#
+BarOrientation=Vertical
+
+[EqBar6]
+Meter=Bar
+MeasureName=mBand6
+X=(#EqX# + (#BarW# + #BarGap#) * 6)
+Y=#EqY#
+W=#BarW#
+H=28
+BarColor=#ColorAccent#
+SolidColor=#ColorHover#
+BarOrientation=Vertical
+
+[EqBar7]
+Meter=Bar
+MeasureName=mBand7
+X=(#EqX# + (#BarW# + #BarGap#) * 7)
+Y=#EqY#
+W=#BarW#
+H=28
+BarColor=#ColorAccent#
+SolidColor=#ColorHover#
+BarOrientation=Vertical
+
+[EqBar8]
+Meter=Bar
+MeasureName=mBand8
+X=(#EqX# + (#BarW# + #BarGap#) * 8)
+Y=#EqY#
+W=#BarW#
+H=28
+BarColor=#ColorAccent#
+SolidColor=#ColorHover#
+BarOrientation=Vertical
+
+[EqBar9]
+Meter=Bar
+MeasureName=mBand9
+X=(#EqX# + (#BarW# + #BarGap#) * 9)
+Y=#EqY#
+W=#BarW#
+H=28
+BarColor=#ColorAccent#
+SolidColor=#ColorHover#
+BarOrientation=Vertical
+
+; ── Horizontal gap overlays (create segmented block look) ──
+; 5 segments of 4px, separated by 4 gaps of 2px = 28px total
+
+[EqGap1]
+Meter=Image
+X=#EqX#
+Y=(#EqY# + 4)
+W=(#BarW# * 10 + #BarGap# * 9)
+H=2
+SolidColor=#ColorBg#
+
+[EqGap2]
+Meter=Image
+X=#EqX#
+Y=(#EqY# + 10)
+W=(#BarW# * 10 + #BarGap# * 9)
+H=2
+SolidColor=#ColorBg#
+
+[EqGap3]
+Meter=Image
+X=#EqX#
+Y=(#EqY# + 16)
+W=(#BarW# * 10 + #BarGap# * 9)
+H=2
+SolidColor=#ColorBg#
+
+[EqGap4]
+Meter=Image
+X=#EqX#
+Y=(#EqY# + 22)
+W=(#BarW# * 10 + #BarGap# * 9)
+H=2
+SolidColor=#ColorBg#
+
+; ═══════════════════════════════════════════
+; METERS – Progress & Controls
+; ═══════════════════════════════════════════
+
+[MeterSep2]
+Meter=Image
+X=14
+Y=122
+W=(#W# - 28)
+H=1
+SolidColor=#ColorBorder#
+
+[MeterProgressBar]
+Meter=Bar
+MeasureName=mProgress
+X=14
+Y=130
+W=(#W# - 28)
+H=5
+BarColor=#ColorAccent#
+SolidColor=#ColorHover#
+BarOrientation=Horizontal
+
+[MeterPosition]
+Meter=String
+MeasureName=mPosition
+X=14
+Y=140
+FontFace=#FontFace#
+FontSize=#FontSizeXs#
+FontWeight=400
+FontColor=#ColorMuted#
+StringAlign=Left
+AntiAlias=1
+Text=%1
+
+[MeterDuration]
+Meter=String
+MeasureName=mDuration
+X=(#W# - 14)
+Y=140
+FontFace=#FontFace#
+FontSize=#FontSizeXs#
+FontWeight=400
+FontColor=#ColorMuted#
+StringAlign=Right
+AntiAlias=1
+Text=%1
+
+[MeterPrev]
+Meter=String
+X=(#W# / 2 - 50)
+Y=156
+FontFace=#FontFace#
+FontSize=#FontSizeXs#
+FontWeight=700
+FontColor=#ColorLavender#
+StringAlign=Center
+AntiAlias=1
+Text=[<<]
+MouseOverAction=[!SetOption MeterPrev FontColor "#ColorAccent#"][!UpdateMeter MeterPrev][!Redraw]
+MouseLeaveAction=[!SetOption MeterPrev FontColor "#ColorMuted#"][!UpdateMeter MeterPrev][!Redraw]
+LeftMouseUpAction=[!CommandMeasure mPlayer "Previous"]
+
+[MeterPlayPause]
+Meter=String
+X=(#W# / 2)
+Y=156
+FontFace=#FontFace#
+FontSize=#FontSizeXs#
+FontWeight=700
+FontColor=#ColorLavender#
+StringAlign=Center
+AntiAlias=1
+Text=[||]
+MouseOverAction=[!SetOption MeterPlayPause FontColor "#ColorAccent#"][!UpdateMeter MeterPlayPause][!Redraw]
+MouseLeaveAction=[!SetOption MeterPlayPause FontColor "#ColorMuted#"][!UpdateMeter MeterPlayPause][!Redraw]
+LeftMouseUpAction=[!CommandMeasure mPlayer "PlayPause"]
+
+[MeterNext]
+Meter=String
+X=(#W# / 2 + 50)
+Y=156
+FontFace=#FontFace#
+FontSize=#FontSizeXs#
+FontWeight=700
+FontColor=#ColorLavender#
+StringAlign=Center
+AntiAlias=1
+Text=[>>]
+MouseOverAction=[!SetOption MeterNext FontColor "#ColorAccent#"][!UpdateMeter MeterNext][!Redraw]
+MouseLeaveAction=[!SetOption MeterNext FontColor "#ColorMuted#"][!UpdateMeter MeterNext][!Redraw]
+LeftMouseUpAction=[!CommandMeasure mPlayer "Next"]
